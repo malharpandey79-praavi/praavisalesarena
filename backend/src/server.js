@@ -21,13 +21,29 @@ const {
 const { sendDailyReportEmail, startDailyReportJob } = require("./reporting");
 
 const app = express();
+const allowedOrigins = String(config.frontendOrigin || "")
+  .split(",")
+  .map((origin) => origin.trim().replace(/\/+$/, ""))
+  .filter(Boolean);
+const allowAnyOrigin = allowedOrigins.includes("*");
+const corsOptions = {
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  origin(origin, callback) {
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
 
-app.use(
-  cors({
-    origin: config.frontendOrigin,
-    credentials: true,
-  })
-);
+    const normalizedOrigin = String(origin).trim().replace(/\/+$/, "");
+    const isAllowed = allowAnyOrigin || allowedOrigins.includes(normalizedOrigin);
+    callback(null, isAllowed);
+  },
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.json({ limit: "1mb" }));
 
 app.get("/api/health", (_req, res) => {

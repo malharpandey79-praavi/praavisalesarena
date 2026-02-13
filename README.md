@@ -71,6 +71,8 @@ npm run dev
 3. Set environment variables:
    - `HOST=0.0.0.0`
    - `FRONTEND_ORIGIN=https://<your-frontend-domain>`
+     - You can set multiple origins as comma-separated values.
+     - Example: `FRONTEND_ORIGIN=http://localhost:3000,https://your-frontend-domain`
    - `JWT_SECRET=<strong-random-secret>`
    - `APP_TIMEZONE=Asia/Kolkata`
    - `ADMIN_PASSWORD`, `VISHAL_PASSWORD`, `ARYAN_PASSWORD`
