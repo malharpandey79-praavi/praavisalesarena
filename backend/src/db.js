@@ -31,7 +31,12 @@ if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
 
-const dbPath = path.join(dataDir, "sales.db");
+const configuredDbPath = String(config.sqlitePath || "").trim();
+const dbPath = configuredDbPath ? path.resolve(configuredDbPath) : path.join(dataDir, "sales.db");
+const dbDir = path.dirname(dbPath);
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
 const db = new DatabaseSync(dbPath);
 db.exec("PRAGMA journal_mode = WAL;");
 db.exec("PRAGMA foreign_keys = ON;");

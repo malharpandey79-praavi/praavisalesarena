@@ -61,6 +61,25 @@ npm run dev
 - Frontend: `http://localhost:3000`
 - Backend: `http://localhost:4000`
 
+## Deploy Backend on Render
+
+1. Create a **Web Service** in Render from this repo.
+2. Use these settings:
+   - Root Directory: `backend`
+   - Build Command: `npm install`
+   - Start Command: `npm start`
+3. Set environment variables:
+   - `HOST=0.0.0.0`
+   - `FRONTEND_ORIGIN=https://<your-frontend-domain>`
+   - `JWT_SECRET=<strong-random-secret>`
+   - `APP_TIMEZONE=Asia/Kolkata`
+   - `ADMIN_PASSWORD`, `VISHAL_PASSWORD`, `ARYAN_PASSWORD`
+   - Optional SMTP vars (`SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`)
+4. For persistent SQLite storage on Render disk, set:
+   - `SQLITE_PATH=/var/data/sales.db`
+
+Note: Render free plan does not support persistent disk, so SQLite data may reset on restart/redeploy unless you use a paid plan with disk.
+
 ## Default Login Credentials
 
 - Admin: `admin` / `admin123`

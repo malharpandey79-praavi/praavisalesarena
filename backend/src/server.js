@@ -254,8 +254,8 @@ app.use((err, _req, res, _next) => {
 
 function startServer() {
   let reportTask = null;
-  const server = app.listen(config.port, () => {
-    console.log(`Praavi backend running at http://localhost:${config.port}`);
+  const server = app.listen(config.port, config.host, () => {
+    console.log(`Praavi backend running at http://${config.host}:${config.port}`);
     reportTask = startDailyReportJob();
   });
   server.on("error", (error) => {

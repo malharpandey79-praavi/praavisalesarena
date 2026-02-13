@@ -25,7 +25,9 @@ const USERS = [
 
 const config = {
   port: Number(process.env.PORT || 4000),
+  host: process.env.HOST || "0.0.0.0",
   jwtSecret: process.env.JWT_SECRET || "praavi-sales-arena-dev-secret",
+  sqlitePath: process.env.SQLITE_PATH || "",
   frontendOrigin: process.env.FRONTEND_ORIGIN || "http://localhost:3000",
   timezone: process.env.APP_TIMEZONE || "Asia/Kolkata",
   adminEmail: process.env.ADMIN_EMAIL || "admin@praavi.local",
